@@ -73,6 +73,8 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 }
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
+	srand(time(NULL));
+	int rng = rand() % 255 + 1;
 
 	if (count >= MAX_ITER) {
 		r = 0;
@@ -80,34 +82,34 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 		b = 0;
 	}
 	else if (count > 52) {
-		r = 25;
-		g = 25;
-		b = 25;
+		r = rng;
+		g = rng;
+		b = rng / count;
 	}
 	else if (count > 40) {
-		r = 50;
-		g = 50;
-		b = 50;
+		r = rng;
+		g = rng;
+		b = rng / count;
 	}
 	else if (count > 28) {
-		r = 75;
-		g = 75;
-		b = 75;
+		r = rng;
+		g = rng;
+		b = rng / count;
 	}
 	else if (count > 16) {
-		r = 100;
-		g = 100;
-		b = 100;	
+		r = rng;
+		g = rng;
+		b = rng / count;
 	}
 	else if (count > 4) {
-		r = 125;
-		g = 125;
-		b = 125;
+		r = rng;
+		g = rng;
+		b = rng / count;
 	}
 	else {
-		r = 150;
-		g = 150;
-		b = 150;
+		r = rng;
+		g = rng;
+		b = rng;
 
 	}
 
