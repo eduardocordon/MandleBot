@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "ComplexPlane.h"
 #include <iostream>
+#include <complex>      // std::complex, std::abs
 
 using namespace std;
 using namespace sf;
@@ -26,7 +27,7 @@ int main()
 	font.loadFromFile("fonts/KOMIKAP_.ttf");
 	text.setFont(font);
 	text.setCharacterSize(25);
-	//text.setPosition(10, 10);
+	text.setPosition(10, 10);
 	text.setFillColor(Color::Black);
 
 	VertexArray background;																						//vertex array
@@ -91,6 +92,7 @@ int main()
 					background[j + i * 1].position = { (float)j,(float)i };						//pixelWidth,am not sure;
 					pixelc.x = j;
 					pixelc.y = i;
+					cout << j << "		" << i << endl;
 					View.countIterations(pixelc);//fix
 					Uint8 r, g, b;
 					View.iterationsToRGB(View.countIterations(pixelc), r, g, b);

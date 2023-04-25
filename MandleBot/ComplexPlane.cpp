@@ -1,6 +1,9 @@
 #include "ComplexPlane.h"
 #include <cmath>
+#include <iostream>
+#include <complex>      // std::complex, std::abs
 #include <sstream>
+using namespace std;
 
 ComplexPlane::ComplexPlane(float aspectRatio)
 {
@@ -50,14 +53,27 @@ void ComplexPlane::loadText(Text& text)
 }
 size_t ComplexPlane::countIterations(Vector2f coord)
 {
-	//fix
-	size_t num1 = 0;
-	return num1;
+	double re = coord.x;
+	double im = coord.y;
+	complex<double> c(re, im);
+	int counter = 0;
+	complex<double> z(0, 0);
+	while (abs(z) < 2) {
+		z = z * z + c;
+		counter++;
+		if (counter == MAX_ITER) {
+			return counter;
+		}
+	}
+	return counter;
 
 }
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
 	if (count >= MAX_ITER) {
-
+		r = 0;
+		g = 0;
+		b = 0;
 	}
+
 }
