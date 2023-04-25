@@ -18,7 +18,7 @@ int main()
 	resolution.y = VideoMode::getDesktopMode().height;															////Get resulution
 	ratio = resolution.x / resolution.y;
 
-	RenderWindow window(VideoMode(resolution.x, resolution.y), "Mandelbrot", Style::Default);
+	RenderWindow window(VideoMode(resolution.x, resolution.y), "Mandelbrot", Style::Fullscreen);
 
 	ComplexPlane View(ratio);
 
@@ -27,8 +27,8 @@ int main()
 	font.loadFromFile("fonts/KOMIKAP_.ttf");
 	text.setFont(font);
 	text.setCharacterSize(25);
-	text.setPosition(10, 10);
-	text.setFillColor(Color::Black);
+	text.setPosition(50, 50);
+	text.setFillColor(Color::Red);
 
 	VertexArray background;																						//vertex array
 	background.setPrimitiveType(Points);
@@ -62,8 +62,11 @@ int main()
 
 			if (event.mouseButton.button == Mouse::Left) {
 				View.zoomIn();
-				mouseP = Mouse::getPosition(window);
+
+				coord = window.mapPixelToCoords(Mouse::getPosition(), View.getView());
+				/*mouseP = Mouse::getPosition(window);
 				coord = window.mapPixelToCoords(mouseP);
+				*/
 				View.setCenter(coord);
 				action now = CALCULATING;
 
@@ -71,8 +74,9 @@ int main()
 
 			if (event.mouseButton.button == Mouse::Left) {
 				View.zoomOut();
-				mouseP = Mouse::getPosition(window);
-				coord = window.mapPixelToCoords(mouseP);
+				coord = window.mapPixelToCoords(Mouse::getPosition(), View.getView());
+				//mouseP = Mouse::getPosition(window);
+				//coord = window.mapPixelToCoords(mouseP);
 				View.setCenter(coord);
 				action now = CALCULATING;
 
@@ -80,32 +84,36 @@ int main()
 		}
 
 		if (event.type == sf::Event::MouseMoved) {
-			vmouseP = Mouse::getPosition(window);
-			vcoord = window.mapPixelToCoords(vmouseP);
+			//vmouseP = Mouse::getPosition(window);
+			//vcoord = window.mapPixelToCoords(vmouseP);
+			vcoord = window.mapPixelToCoords(Mouse::getPosition(), View.getView());
 			View.setMouseLocation(vcoord);
 		}
 
 																								//Update scene;
-		if (now == CALCULATING) {
+		/*/if (now == CALCULATING) {
 			for (float j = 0; j < resolution.x; j++) {
 				for (float i = 0; i < resolution.y; i++) {
-					background[j + i * 1].position = { (float)j,(float)i };						//pixelWidth,am not sure;
+					background[j + i * 3].position = { (float)j,(float)i };						//pixelWidth,am not sure;
+					float counter;
 					pixelc.x = j;
 					pixelc.y = i;
-					cout << j << "		" << i << endl;
-					View.countIterations(pixelc);//fix
+					counter =View.countIterations(pixelc);//fix
 					Uint8 r, g, b;
-					View.iterationsToRGB(View.countIterations(pixelc), r, g, b);
-					background[j + i * 1].color = { r,g,b };
+					View.iterationsToRGB(counter, r, g, b);
+					background[j + i * 3].color = { r,g,b };
 					now = DISPLAYING;
 					View.loadText(text);
 				}
 			}
-		}
+		}*/
 
 		//draw
+		
+		View.loadText(text);
+		//window.setView(View.getView());
 		window.clear();
-		window.draw(background);
+		//window.draw(background);
 		window.draw(text);
 		window.display();
 

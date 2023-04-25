@@ -45,8 +45,11 @@ void ComplexPlane::setMouseLocation(Vector2f coord)
 }
 void ComplexPlane::loadText(Text& text)
 {
+	Vector2f center;
+	center.x = m_mouseLocation.x / 2, m_mouseLocation.y / 2;
 	stringstream ss;
-	ss << "Mandelbrot Set" << endl << "Center: (0,0)" << endl << "Cursor: (n,n)" << endl << "Left-click to Zoom in" << endl << "Right-click to Zoom out" << endl;
+
+	ss << "Mandelbrot Set"<< endl << "Center: (0,0)" << endl << "Cursor: ("<< m_mouseLocation.x<<","<< m_mouseLocation.y<< ")" << endl << "Left - click to Zoom in" << endl << "Right - click to Zoom out" << endl;
 
 	text.setString(ss.str());
 
@@ -70,10 +73,42 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 }
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
+
 	if (count >= MAX_ITER) {
 		r = 0;
 		g = 0;
 		b = 0;
+	}
+	else if (count > 52) {
+		r = 25;
+		g = 25;
+		b = 25;
+	}
+	else if (count > 40) {
+		r = 50;
+		g = 50;
+		b = 50;
+	}
+	else if (count > 28) {
+		r = 75;
+		g = 75;
+		b = 75;
+	}
+	else if (count > 16) {
+		r = 100;
+		g = 100;
+		b = 100;	
+	}
+	else if (count > 4) {
+		r = 125;
+		g = 125;
+		b = 125;
+	}
+	else {
+		r = 150;
+		g = 150;
+		b = 150;
+
 	}
 
 }
