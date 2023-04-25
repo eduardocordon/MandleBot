@@ -72,7 +72,7 @@ int main()
 
 			}
 
-			if (event.mouseButton.button == Mouse::Left) {
+			if (event.mouseButton.button == Mouse::Right) {
 				View.zoomOut();
 				coord = window.mapPixelToCoords(Mouse::getPosition(), View.getView());
 				//mouseP = Mouse::getPosition(window);
@@ -91,14 +91,16 @@ int main()
 		}
 
 																								//Update scene;
-		/*/if (now == CALCULATING) {
+		/*if (now == CALCULATING) {
 			for (float j = 0; j < resolution.x; j++) {
 				for (float i = 0; i < resolution.y; i++) {
 					background[j + i * 3].position = { (float)j,(float)i };						//pixelWidth,am not sure;
-					float counter;
-					pixelc.x = j;
-					pixelc.y = i;
-					counter =View.countIterations(pixelc);//fix
+					float counter = 0;
+					Vector2i coord(j, i);
+					Vector2f worldCord;
+					worldCord = window.mapPixelToCoords(coord);
+
+					counter = View.countIterations(worldCord);//fix
 					Uint8 r, g, b;
 					View.iterationsToRGB(counter, r, g, b);
 					background[j + i * 3].color = { r,g,b };
@@ -109,9 +111,8 @@ int main()
 		}*/
 
 		//draw
-		
-		View.loadText(text);
 		//window.setView(View.getView());
+		View.loadText(text);
 		window.clear();
 		//window.draw(background);
 		window.draw(text);
