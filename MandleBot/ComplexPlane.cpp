@@ -48,11 +48,16 @@ void ComplexPlane::loadText(Text& text)
 	text.setString(ss.str());
 
 }
-size_t  ComplexPlane::countIterations(Vector2f coord)
+size_t ComplexPlane::countIterations(Vector2f coord)
 {
+	//fix
+	size_t num1 = 0;
+	return num1;
 
 }
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
+	if (count >= MAX_ITER) {
 
+	}
 }
