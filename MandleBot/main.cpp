@@ -90,6 +90,7 @@ int main()
 
 
 		//Update scene;
+		
 		if (now == CALCULATING)
 		{
 			for (float j = 0; j < resolution.x; j++)
