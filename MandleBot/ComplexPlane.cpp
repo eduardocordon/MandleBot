@@ -49,7 +49,7 @@ void ComplexPlane::loadText(Text& text)
 	center = m_view.getCenter();
 	stringstream ss;
 
-	ss << "Mandelbrot Set"<< endl << "Center: ("<<center.x<<","<< center.y<<")" << endl << "Cursor: ("<< m_mouseLocation.x<<", "<< m_mouseLocation.y<< ")" << endl << "Left - click to Zoom in" << endl << "Right - click to Zoom out" << endl;
+	ss << "Mandelbrot Set" << endl << "Center: (" << center.x << "," << center.y << ")" << endl << "Cursor: (" << m_mouseLocation.x << ", " << m_mouseLocation.y << ")" << endl << "Left - click to Zoom in" << endl << "Right - click to Zoom out" << endl;
 
 	text.setString(ss.str());
 
@@ -73,42 +73,45 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 }
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
+	int region = MAX_ITER / 5;
+	int x = count / region;
 
-	if (count >= MAX_ITER) {
+	if (count == MAX_ITER)
+	{
 		r = 0;
 		g = 0;
 		b = 0;
+		return;
 	}
-	else if (count > 52) {
-		r = 25;
-		g = 25;
-		b = 25;
+	else
+	{
+		switch (x)
+		{
+		case 0:
+			r = 128;
+			g = 0;
+			b = 128 + (count % region) * (127 / region);
+			break;
+		case 1:
+			r = 0;
+			g = 0;
+			b = 128 + (count % region) * (127 / region);
+			break;
+		case 2:
+			r = 0;
+			g = 128 + (count % region) * (127 / region);
+			b = 0;
+			break;
+		case 3:
+			r = 255 - (count % region) * (127 / region);
+			g = 255 - (count % region) * (255 / region);
+			b = 0;
+			break;
+		default:
+			r = 255;
+			g = 0;
+			b = 0;
+			break;
+		}
 	}
-	else if (count > 40) {
-		r = 50;
-		g = 50;
-		b = 50;
-	}
-	else if (count > 28) {
-		r = 75;
-		g = 75;
-		b = 75;
-	}
-	else if (count > 16) {
-		r = 100;
-		g = 100;
-		b = 100;	
-	}
-	else if (count > 4) {
-		r = 125;
-		g = 125;
-		b = 125;
-	}
-	else {
-		r = 150;
-		g = 150;
-		b = 150;
-
-	}
-
 }
